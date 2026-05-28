@@ -58,18 +58,37 @@ const AppProvider = ({ children }) => {
 
   // Add Reservation 
   const addReservation = (event) => {
-    setReservations(prev => {
-      const alreadyReserved = prev.some( // Check if event is already reserved
-        item => item.id === event.id
-      );
+    const alreadyReserved =
+        reservations.some( //check if event is already reserved
+            item => item.id === event.id
+        );
+    if (alreadyReserved) {
+        setReservations(
+            reservations.filter( //this filter works- keep all items except this one
+                item => item.id !== event.id
+            )
+        );
+    } 
+    else {
+        setReservations([
+            ...reservations, // copy old reservations + new one
+            event
+        ]);
+    }
+};
+  // const addReservation = (event) => {
+  //   setReservations(prev => {
+  //     const alreadyReserved = prev.some( // Check if event is already reserved
+  //       item => item.id === event.id
+  //     );
 
-      if (alreadyReserved) {
-        return prev; //to prevent duplicates, return existing reservations if event is already reserved
-      }
+  //     if (alreadyReserved) {
+  //       return prev; //to prevent duplicates, return existing reservations if event is already reserved
+  //     }
 
-      return [...prev, event];
-    });
-  };
+  //     return [...prev, event];
+  //   });
+  // };
 
 
   return (

@@ -71,14 +71,11 @@ const EventDetailsBottomSheet = forwardRef( ({ selectedEvent }, ref) => {
                             <TouchableOpacity
                                 style={[
                                     styles.button,
-                                    isReserved
-      ? styles.reservedBtn
-      : styles.reserveBtn,
+                                    isReserved ? styles.reservedBtn : styles.reserveBtn,
                                 ]}
                                 onPress={() => {
-                                    if (!isReserved) {
-                                        addReservation(selectedEvent);
-                                    }
+                                    addReservation(selectedEvent);
+                                    
                                 }
                                 }
                             >

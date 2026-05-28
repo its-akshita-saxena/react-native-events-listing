@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ReservationsTabScreen = () => {
-  const { reservations, theme } = useContext(AppContext);
+  const { reservations, theme , addReservation} = useContext(AppContext);
 
   return (
     <SafeAreaView
@@ -153,6 +153,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
+  cancelBtn: {
+
+  marginTop: 15,
+
+  backgroundColor: '#ff4d4d',
+
+  paddingVertical: 10,
+
+  borderRadius: 10,
+
+  alignItems: 'center',
+},
+
+cancelBtnText: {
+
+  color: '#fff',
+
+  fontWeight: 'bold',
+
+  fontSize: 15,
+},
 
   emptyContainer: {
     flex: 1,

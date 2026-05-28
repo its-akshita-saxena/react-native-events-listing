@@ -548,7 +548,7 @@ const HomeScreen = ({ navigation }) => {
                                                         backgroundColor: '#4CAF50'
                                                     }
                                                 ]}
-                                                disabled={isReserved}
+                                                // disabled={isReserved}
                                                 onPress={() => addReservation(item)}
                                             >
                                                 <Text style={styles.buttonText}>
