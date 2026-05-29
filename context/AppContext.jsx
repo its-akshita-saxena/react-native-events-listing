@@ -1,4 +1,5 @@
 import React, { createContext, useState, } from 'react';
+import Toast from 'react-native-toast-message';
 
 export const AppContext =
   createContext();
@@ -40,40 +41,60 @@ const AppProvider = ({ children }) => {
 
   // Toggle Wishlist
   const toggleWishlist = (event) => {
-
-    const alreadyExists = wishlist.find((item) => item.id === event.id);
-
-    if (alreadyExists) {
-      const updatedWishlist = wishlist.filter((item) => item.id !== event.id);
-      setWishlist(updatedWishlist);
-
-    } else {
-
-      setWishlist([
-        ...wishlist,
-        event,
-      ]);
-    }
-  };
-
-  // Add Reservation 
-  const addReservation = (event) => {
-    const alreadyReserved =
-        reservations.some( //check if event is already reserved
-            item => item.id === event.id
-        );
-    if (alreadyReserved) {
-        setReservations(
-            reservations.filter( //this filter works- keep all items except this one
+    const exists = wishlist.some(
+        item => item.id === event.id
+    );
+    if (exists) {
+        setWishlist(
+            wishlist.filter(
                 item => item.id !== event.id
             )
         );
+        Toast.show({
+            type: 'success',
+            text1: 'Removed from Wishlist ❤️',
+        });
+    } else {
+        setWishlist([
+            ...wishlist,
+            event,
+        ]);
+
+        Toast.show({
+            type: 'success',
+            text1: 'Added to Wishlist ❤️',
+        });
+    }
+};
+
+  // Add Reservation 
+ const addReservation = (event) => {
+    const alreadyReserved =
+        reservations.some(
+            item => item.id === event.id
+        );
+
+    if (alreadyReserved) {
+        setReservations(
+            reservations.filter(
+                item => item.id !== event.id
+            )
+        );
+        Toast.show({
+            type: 'success',
+            text1: 'Reservation Removed ❌',
+        });
+
     } 
     else {
         setReservations([
-            ...reservations, // copy old reservations + new one
-            event
+            ...reservations,
+            event,
         ]);
+        Toast.show({
+            type: 'success',
+            text1: 'Reservation Added 🎟',
+        });
     }
 };
   // const addReservation = (event) => {

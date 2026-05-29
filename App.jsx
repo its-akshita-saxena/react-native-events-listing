@@ -15,6 +15,7 @@ import WishlistScreen from './screens/WishlistScreen';
 import ReservationsTabScreen from './screens/ReservationsTabScreen';
 
 import ReservationScreen from './screens/ReservationScreen';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -86,11 +87,13 @@ const App = () => {
           <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }} >
               {/* Bottom Tabs */}
-              <Stack.Screen name="MainTabs" component={MainTabs} />
+              <Stack.Screen name="MainTabs" component={MainTabs} />  
+              {/* //it loads the bottom tabs first and then we can navigate to other screens from there */}
               {/* Success Screen */}
               <Stack.Screen name="ReservationScreen" component={ReservationScreen} />
             </Stack.Navigator>
           </NavigationContainer>
+            <Toast />
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
     </AppProvider>

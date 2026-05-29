@@ -1,26 +1,22 @@
 import React, { useContext } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
+ View,Text,StyleSheet,FlatList,Image,TouchableOpacity,
 } from 'react-native';
 import { AppContext } from '../context/AppContext';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ReservationsTabScreen = () => {
-  const { reservations, theme , addReservation} = useContext(AppContext);
+  const { reservations, theme, addReservation } = useContext(AppContext);
 
   return (
     <SafeAreaView
-  style={[
-    styles.container,
-    { backgroundColor: theme.background }
-  ]}
->
-      
+      style={[
+        styles.container,
+        { backgroundColor: theme.background }
+      ]}
+    >
+
       {/* Header */}
       <Text
         style={[
@@ -29,7 +25,7 @@ const ReservationsTabScreen = () => {
             color: theme.text,
           },
         ]}>
-       Your Reservations
+        Your Reservations
       </Text>
 
       {reservations.length === 0 ? (
@@ -61,7 +57,7 @@ const ReservationsTabScreen = () => {
           )}
           renderItem={({ item }) => (
             <View style={styles.card}>
-              
+
               {/* Event Image */}
               <Image
                 source={{ uri: item.image }}
@@ -73,6 +69,7 @@ const ReservationsTabScreen = () => {
 
                 {/* Title + Badge */}
                 <View style={styles.topRow}>
+
                   <Text
                     numberOfLines={1}
                     style={[
@@ -80,7 +77,8 @@ const ReservationsTabScreen = () => {
                       {
                         color: theme.text,
                       },
-                    ]}>
+                    ]}
+                  >
                     {item.title}
                   </Text>
 
@@ -89,6 +87,7 @@ const ReservationsTabScreen = () => {
                       Reserved
                     </Text>
                   </View>
+
                 </View>
 
                 {/* Category */}
@@ -98,6 +97,7 @@ const ReservationsTabScreen = () => {
                     size={16}
                     color="#BDBDBD"
                   />
+
                   <Text style={styles.subText}>
                     {item.category}
                   </Text>
@@ -110,6 +110,7 @@ const ReservationsTabScreen = () => {
                     size={16}
                     color="#BDBDBD"
                   />
+
                   <Text style={styles.subText}>
                     {item.time}
                   </Text>
@@ -122,10 +123,42 @@ const ReservationsTabScreen = () => {
                     size={16}
                     color="#BDBDBD"
                   />
+
                   <Text style={styles.subText}>
                     {item.location}
                   </Text>
                 </View>
+
+                {/* CANCEL BUTTON */}
+                <TouchableOpacity
+                  style={{
+                    marginTop: 15,
+
+                    backgroundColor: '#ff4d4d',
+
+                    paddingVertical: 10,
+
+                    borderRadius: 10,
+
+                    alignItems: 'center',
+                  }}
+
+                  onPress={() =>
+                    addReservation(item)
+                  }
+                >
+                  <Text
+                    style={{
+                      color: '#fff',
+
+                      fontWeight: 'bold',
+
+                      fontSize: 15,
+                    }}
+                  >
+                    Cancel Reservation
+                  </Text>
+                </TouchableOpacity>
 
               </View>
 
@@ -155,25 +188,25 @@ const styles = StyleSheet.create({
   },
   cancelBtn: {
 
-  marginTop: 15,
+    marginTop: 15,
 
-  backgroundColor: '#ff4d4d',
+    backgroundColor: '#ff4d4d',
 
-  paddingVertical: 10,
+    paddingVertical: 10,
 
-  borderRadius: 10,
+    borderRadius: 10,
 
-  alignItems: 'center',
-},
+    alignItems: 'center',
+  },
 
-cancelBtnText: {
+  cancelBtnText: {
 
-  color: '#fff',
+    color: '#fff',
 
-  fontWeight: 'bold',
+    fontWeight: 'bold',
 
-  fontSize: 15,
-},
+    fontSize: 15,
+  },
 
   emptyContainer: {
     flex: 1,
