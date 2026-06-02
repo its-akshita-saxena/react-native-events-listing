@@ -1,95 +1,100 @@
-import React, { forwardRef,  useMemo, useContext,} from 'react';
+import React, { forwardRef, useMemo, useContext, } from 'react';
 
-import { View,  Text,  Image,  StyleSheet,  TouchableOpacity, } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, } from 'react-native';
 
-import {  BottomSheetModal, BottomSheetView, BottomSheetBackdrop, } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetView, BottomSheetBackdrop, } from '@gorhom/bottom-sheet';
 
 import { AppContext } from '../context/AppContext';
 
-const EventDetailsBottomSheet = forwardRef( ({ selectedEvent }, ref) => {
-        const snapPoints = useMemo( () => ['55%'], [] );
+const EventDetailsBottomSheet = forwardRef(({ selectedEvent }, ref) => {
+    const snapPoints = useMemo(() => ['55%'], []);
 
-        const { toggleWishlist,  addReservation,  wishlist, reservations, } = useContext(AppContext);
+    const { toggleWishlist, addReservation, wishlist, reservations, } = useContext(AppContext);
 
-        const isWishlisted = selectedEvent &&  wishlist.some( item => item.id === selectedEvent.id  );
-        const isReserved =   selectedEvent &&  reservations.some(  item => item.id === selectedEvent.id  );
+    const isWishlisted = selectedEvent && wishlist.some(item => item.id === selectedEvent.id);
+    const isReserved = selectedEvent && reservations.some(item => item.id === selectedEvent.id);
 
-        const renderBackdrop = (props) => (
-            <BottomSheetBackdrop
-                {...props}
-                disappearsOnIndex={-1}
-                appearsOnIndex={0}
-                pressBehavior="close"
-            />
-        );
+    const renderBackdrop = (props) => (
+        <BottomSheetBackdrop
+            {...props}
+            disappearsOnIndex={-1}
+            appearsOnIndex={0}
+            pressBehavior="close"
+        />
+    );
 
-        return (
-            <BottomSheetModal ref={ref} snapPoints={snapPoints} backdropComponent={renderBackdrop}>
-                <BottomSheetView style={styles.content}>
+    return (
+        <BottomSheetModal
+            ref={ref}
+            // snapPoints={snapPoints}
+            enableDynamicSizing={true}
+            backdropComponent={renderBackdrop}
+        >
+            <BottomSheetView style={styles.content}>
 
-                    {!selectedEvent ? (
-                        <Text>No Event Selected, Try another mall or date filter </Text>
-                    ) : (
-                        <>
-                            <Image
-                                source={{ uri: selectedEvent.image }}
-                                style={styles.image}
-                            />
+                {!selectedEvent ? (
+                    <Text>No Event Selected, Try another mall or date filter </Text>
+                ) : (
+                    <>
+                        <Image
+                            source={{ uri: selectedEvent.image }}
+                            style={styles.image}
+                        />
 
-                            <Text style={styles.title}>
-                                {selectedEvent.title}
+                        <Text style={styles.title}>
+                            {selectedEvent.title}
+                        </Text>
+
+                        <Text style={styles.info}>
+                            Category: {selectedEvent.category}
+                        </Text>
+                        <Text style={styles.info}>
+                            Mall: {selectedEvent.mall}
+                        </Text>
+
+                        <Text style={styles.info}>
+                            Time: {selectedEvent.time}
+                        </Text>
+
+                        <Text style={styles.info}>
+                            Location: {selectedEvent.location}
+                        </Text>
+
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() =>
+                                toggleWishlist(selectedEvent)
+                            }
+                        >
+                            <Text style={styles.buttonText}>
+                                {isWishlisted
+                                    ? 'Remove from Wishlist'
+                                    : 'Add to Wishlist'}
                             </Text>
+                        </TouchableOpacity>
 
-                            <Text style={styles.info}>
-                                Category: {selectedEvent.category}
+                        <TouchableOpacity
+                            style={[
+                                styles.button,
+                                isReserved ? styles.reservedBtn : styles.reserveBtn,
+                            ]}
+                            onPress={() => {
+                                addReservation(selectedEvent);
+
+                            }
+                            }
+                        >
+                            <Text style={styles.buttonText}>
+                                {isReserved ? 'Reserved ✓' : 'Reserve Spot'}
                             </Text>
-                             <Text style={styles.info}>
-                                Mall: {selectedEvent.mall}
-                            </Text>
+                        </TouchableOpacity>
+                    </>
+                )}
 
-                            <Text style={styles.info}>
-                                Time: {selectedEvent.time}
-                            </Text>
-
-                            <Text style={styles.info}>
-                                Location: {selectedEvent.location}
-                            </Text>
-
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={() =>
-                                    toggleWishlist(selectedEvent)
-                                }
-                            >
-                                <Text style={styles.buttonText}>
-                                    {isWishlisted
-                                        ? 'Remove from Wishlist'
-                                        : 'Add to Wishlist'}
-                                </Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                style={[
-                                    styles.button,
-                                    isReserved ? styles.reservedBtn : styles.reserveBtn,
-                                ]}
-                                onPress={() => {
-                                    addReservation(selectedEvent);
-                                    
-                                }
-                                }
-                            >
-                                <Text style={styles.buttonText}>
-                                    {isReserved ? 'Reserved ✓' : 'Reserve Spot'}
-                                </Text>
-                            </TouchableOpacity>
-                        </>
-                    )}
-
-                </BottomSheetView>
-            </BottomSheetModal>
-        );
-    }
+            </BottomSheetView>
+        </BottomSheetModal>
+    );
+}
 );
 
 export default EventDetailsBottomSheet;
@@ -130,8 +135,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5c542',
     },
     reservedBtn: {
-  backgroundColor: '#22c55e',
-},
+        backgroundColor: '#22c55e',
+    },
 
     buttonText: {
         color: '#fff',

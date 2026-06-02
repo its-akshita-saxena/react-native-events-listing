@@ -124,12 +124,12 @@ const HomeScreen = ({ navigation }) => {
     ];
     const malls = [
         'All Malls',
-        'Phoenix Mall',
-        'DLF Mall',
-        'Lulu Mall',
-        'Pacific Mall',
-        'Ambience Mall',
-        'City Walk',
+        // 'Phoenix Mall',
+        // 'DLF Mall',
+        // 'Lulu Mall',
+        // 'Pacific Mall',
+        // 'Ambience Mall',
+        // 'City Walk',
     ];
     const dateOptions = [
         'All Dates',

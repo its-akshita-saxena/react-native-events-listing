@@ -1,0 +1,2 @@
+npm install react-native-worklets@0.8.3
+npm install react-native-keyboard-controller --legacy-peer-deps

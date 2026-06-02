@@ -43,7 +43,8 @@ const DateFilterBottomSheet = forwardRef(
     return (
       <BottomSheetModal
         ref={ref}
-        snapPoints={snapPoints}
+        // snapPoints={snapPoints}
+         enableDynamicSizing={true}
         backdropComponent={renderBackdrop}
       >
         <BottomSheetView style={styles.container}>
